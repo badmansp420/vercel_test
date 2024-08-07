@@ -1,8 +1,7 @@
-import pg from 'pg';
 import 'dotenv/config';
-const { Pool } = pg;
+import { createPool } from '@vercel/postgres';
 
-const pool = new Pool({
+const pool = new createPool({
     connectionString: process.env.POSTGRES_URL,
 })
 
