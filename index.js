@@ -2,6 +2,8 @@ import express from "express";
 import 'dotenv/config'
 import { pool } from './config.js';
 const app = express();
+import { sql } from "@vercel/postgres";
+
 
 // app.get('/', (req, res) => {
 
@@ -9,7 +11,7 @@ const app = express();
 // })
 
 app.get('/', async (req, res) => {
-    const result = await pool.query('select * from admin');
+    const result = await pool.sql`select * from admin`
     if (!result) {
         return res.status(404).json({ message: "Network Error" });
     }
@@ -17,7 +19,7 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/admin', async (req, res) => {
-    const result = await pool.query('select * from admin');
+    const result = await pool.sql`select * from admin`
     if (!result) {
         return res.status(404).json({ message: "Network Error" });
     }
