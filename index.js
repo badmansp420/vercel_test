@@ -11,19 +11,33 @@ import { sql } from "@vercel/postgres";
 // })
 
 app.get('/', async (req, res) => {
-    const result = await pool.sql`select * from admin`
-    if (!result) {
+    try {
+        const result = await pool.sql`select * from admin `
+        if (!result) {
+            return res.status(404).json({ message: "Network Error" });
+        }
+        res.status(200).json(result.rows);
+    } catch (error) {
+        // console.log(error);
         return res.status(404).json({ message: "Network Error" });
+    } finally {
+        pool.release();
     }
-    res.status(200).json(result.rows);
 })
 
 app.get('/admin', async (req, res) => {
-    const result = await pool.sql`select * from admin`
-    if (!result) {
+    try {
+        const result = await pool.sql`select * from admin `
+        if (!result) {
+            return res.status(404).json({ message: "Network Error" });
+        }
+        res.status(200).json(result.rows);
+    } catch (error) {
+        // console.log(error);
         return res.status(404).json({ message: "Network Error" });
+    } finally {
+        pool.release();
     }
-    res.status(200).json(result.rows);
 })
 
 app.listen(process.env.PORT, () => {
