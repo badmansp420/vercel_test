@@ -7,10 +7,6 @@ import { sql } from "@vercel/postgres";
 await pool.connect();
 const app = express();
 
-// app.get('/', (req, res) => {
-
-//     res.status(200).json({ message: "OK" })
-// })
 
 app.get('/', async (req, res) => {
     try {
