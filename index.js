@@ -1,9 +1,11 @@
 import express from "express";
 import 'dotenv/config'
 import { pool } from './config.js';
-const app = express();
 import { sql } from "@vercel/postgres";
 
+
+const app = express();
+await pool.connect();
 
 // app.get('/', (req, res) => {
 
@@ -12,7 +14,7 @@ import { sql } from "@vercel/postgres";
 
 app.get('/', async (req, res) => {
     try {
-        const result = await pool.sql`select * from admin `
+        const result = await pool.sql`select * from admin ORDER BY ID ASC`
         if (!result) {
             return res.status(404).json({ message: "Network Error" });
         }
