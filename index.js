@@ -10,7 +10,7 @@ const app = express();
 
 app.get('/', async (req, res) => {
     try {
-        const result = await pool.query`select * from admin ORDER BY ID ASC`
+        const result = await pool.sql`select * from admin ORDER BY ID ASC`
         if (!result) {
             return res.status(404).json({ message: "Network Error" });
         }
@@ -18,6 +18,9 @@ app.get('/', async (req, res) => {
     } catch (error) {
         // console.log(error);
         return res.status(404).json({ message: "Network Error" });
+    }
+    finally {
+        pool.release();
     }
 })
 
